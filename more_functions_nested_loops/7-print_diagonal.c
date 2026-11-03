@@ -6,6 +6,12 @@
  */
 void print_diagonal(int n)
 {
+	if (n <= 0)
+	{
+		_putchar('\n');
+		return;
+	}
+
 	int row, i;
 
 	for (row = 0; row < n; row++)
