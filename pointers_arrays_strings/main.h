@@ -22,5 +22,6 @@ void reverse_array(int *a, int n);
 char *string_toupper(char *str);
 char *cap_string(char *str);
 int is_seperator(char c);
+char *leet(char *str);
 
 #endif /* __POINTERS_H_ */
