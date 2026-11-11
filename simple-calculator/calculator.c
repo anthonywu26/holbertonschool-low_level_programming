@@ -53,9 +53,10 @@ int main(void)
 
 /**
  * sc_operation_process - performs calculator operation according to input
- *Description: To perform the operation, the calculator prompts the user for
- * integer values a and b, and then prints the result of operating on these
- * values.
+ *Description: Checks that oper_type is a valid opertaion.
+ * To perform the operation, the calculator prompts the user
+ * for integer values a and b, and then prints the result of
+ * operating on these values.
  *@oper_type: user selected operation type
  */
 void sc_operation_process(int oper_type)
@@ -75,6 +76,12 @@ void sc_operation_process(int oper_type)
 	if (oper_type == SC_OPERATION_ADD)
 	{
 		printf("Result: %d\n", operand_a + operand_b);
+		return;
+	}
+
+	if (oper_type == SC_OPERATION_SUBTRACT)
+	{
+		printf("Result: %d\n", operand_a - operand_b);
 		return;
 	}
 }
