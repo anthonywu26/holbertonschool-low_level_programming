@@ -84,6 +84,12 @@ void sc_operation_process(int oper_type)
 		printf("Result: %d\n", operand_a - operand_b);
 		return;
 	}
+
+	if (oper_type == SC_OPERATION_MULTIPLY)
+	{
+		printf("Result: %d\n", operand_a * operand_b);
+		return;
+	}
 }
 
 /**
