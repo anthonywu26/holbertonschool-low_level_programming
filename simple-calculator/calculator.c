@@ -71,24 +71,30 @@ void sc_operation_process(int oper_type)
 	}
 
 	if (sc_userinput_getoperands(&operand_a, &operand_b))
-		return;
+		return; /* return if user input invalid */
 
 	if (oper_type == SC_OPERATION_ADD)
 	{
 		printf("Result: %d\n", operand_a + operand_b);
-		return;
 	}
-
-	if (oper_type == SC_OPERATION_SUBTRACT)
+	else if (oper_type == SC_OPERATION_SUBTRACT)
 	{
 		printf("Result: %d\n", operand_a - operand_b);
-		return;
 	}
-
-	if (oper_type == SC_OPERATION_MULTIPLY)
+	else if (oper_type == SC_OPERATION_MULTIPLY)
 	{
 		printf("Result: %d\n", operand_a * operand_b);
-		return;
+	}
+	else if (oper_type == SC_OPERATION_DIVIDE)
+	{
+		if (operand_b == 0)
+		{
+			printf("Error: division by zero\n");
+		}
+		else
+		{
+			printf("Result: %f\n", (float) operand_a / operand_b);
+		}
 	}
 }
 
