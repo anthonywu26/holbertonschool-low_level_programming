@@ -9,6 +9,8 @@
 #define SC_OPERATION_MULTIPLY 3
 #define SC_OPERATION_DIVIDE 4
 
+#define SC_EINVAL 1
+
 /**
  * main - calculator application
  * Description: Simple calculator that supports addition, subtraction,
@@ -39,19 +41,71 @@ int main(void)
 			continue;
 		}
 
-		if (input < SC_OPERATION_QUIT || input > SC_OPERATION_DIVIDE)
-		{
-			printf("Invalid choice\n");
-			continue;
-		}
-
 		if (input == SC_OPERATION_QUIT)
 			break;
 
-/* code to handle operations here */
+		sc_operation_process(input);
 	}
 
 	printf("Bye!\n");
+	return (0);
+}
+
+/**
+ * sc_operation_process - performs calculator operation according to input
+ *Description: To perform the operation, the calculator prompts the user for
+ * integer values a and b, and then prints the result of operating on these
+ * values.
+ *@oper_type: user selected operation type
+ */
+void sc_operation_process(int oper_type)
+{
+	int operand_a;
+	int operand_b;
+
+	if (oper_type < SC_OPERATION_QUIT || oper_type > SC_OPERATION_DIVIDE)
+	{
+		printf("Invalid choice\n");
+		return;
+	}
+
+	if (sc_userinput_getoperands(&operand_a, &operand_b))
+		return;
+
+	if (oper_type == SC_OPERATION_ADD)
+	{
+		printf("Result: %d\n", operand_a + operand_b);
+		return;
+	}
+}
+
+/**
+ * sc_userinput_getoperands - prompt user for a and b
+ *@a: pointer to address where a is to be written
+ *@b: pointer where b is written
+ *Return: 0 if successful, SC_EINVAL if user input is
+ * invalid (not an accepted integer operand for both a and b
+ */
+int sc_userinput_getoperands(int *a, int *b)
+{
+	printf("A: ");
+
+	if (scanf("%d", a) != 1 || getchar() != '\n')
+	{
+		printf("Invalid integer operand\n");
+		sc_userinput_trim();
+		return (SC_EINVAL);
+	}
+
+	printf("B: ");
+
+	if (scanf("%d", b) != 1 || getchar() != '\n')
+	{
+		printf("Invalid integer operand\n");
+		sc_userinput_trim();
+		return (SC_EINVAL);
+	}
+
 	return (0);
 }
 
