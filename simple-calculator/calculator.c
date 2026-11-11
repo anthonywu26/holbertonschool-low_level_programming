@@ -6,8 +6,8 @@
 #define SC_OPERATION_QUIT 0
 #define SC_OPERATION_ADD 1
 #define SC_OPERATION_SUBTRACT 2
-#define	SC_OPERATION_MULTIPLY 3
-#define	SC_OPERATION_DIVIDE 4
+#define SC_OPERATION_MULTIPLY 3
+#define SC_OPERATION_DIVIDE 4
 
 /**
  * main - calculator application
@@ -21,21 +21,34 @@ int main(void)
 {
 	int input;
 
-	printf("Simple Calculator\n1) Add\n2) Subtract\n");
-	printf("3) Multiply\n4) Divide\n0) Quit\n");
+	printf("Simple Calculator\n1) Add\n2) Subtract\n"
+	       "3) Multiply\n4) Divide\n0) Quit\n");
 
 	while (true)
 	{
 		printf("Choice: ");
 
-		if (scanf("%d", &input) != 1)
+		if (scanf("%d", &input) != 1 || getchar() != '\n')
 		{
-			sc_err_invalidinput();
+		/**
+		  * this block executes if user enters anything other
+		  * than exactly an integer followed by a newline.
+		  */
+			printf("Invalid choice\n");
+			sc_userinput_trim();
+			continue;
+		}
+
+		if (input < SC_OPERATION_QUIT || input > SC_OPERATION_DIVIDE)
+		{
+			printf("Invalid choice\n");
 			continue;
 		}
 
 		if (input == SC_OPERATION_QUIT)
 			break;
+
+/* code to handle operations here */
 	}
 
 	printf("Bye!\n");
@@ -43,13 +56,12 @@ int main(void)
 }
 
 /**
- * sc_err_invalidinput - handles cleanup if user enters invalid input
- * Description: Prints error message and consumes remaining characters
- * in stdin buffer up until and including the newline.
+ * sc_userinput_trim - cleanup any trailing user input
+ * Description: Consumes any remaining characters in stdin up to and
+ * including the next newline.
  */
-void sc_err_invalidinput(void)
+void sc_userinput_trim(void)
 {
-	printf("Invalid input\n");
 	while (getchar() != '\n')
 		;
 }
