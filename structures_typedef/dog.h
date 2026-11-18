@@ -3,6 +3,11 @@
 #define __DOG_H_
 
 /**
+ * dog_t - typedef for type struct dog
+ */
+typedef struct dog dog_t;
+
+/**
  * struct dog - struct representing a dog
  * @name: a identifier for this dog creature
  * @owner: the dog's guardian, if it has one
